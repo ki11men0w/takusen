@@ -102,9 +102,9 @@ SELECT n, takusenTestFunc(n) from t_natural where n < 10 order by n;
 > runTest runPerf args = do
 >   putStrLn "PostgreSQL tests"
 >   let (user:pswd:dbname:_) = args
->   Low.runTest user
+>   Low.runTest $ "user=" ++ user ++ " password=" ++ pswd ++ " dbname=" ++ dbname
 >   flip catchDB basicDBExceptionReporter $ do
->     (r, conn1) <- withContinuedSession (connect [CAuser user]) (testBody runPerf)
+>     (r, conn1) <- withContinuedSession (connect [CAuser user, CApassword pswd, CAdbname dbname]) (testBody runPerf)
 >     withSession conn1 testPartTwo
 
 > testBody runPerf = do

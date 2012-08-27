@@ -30,9 +30,9 @@ This low-level test assumes that the user has a database with their name.
 If not, it won't work. I have a postgres user and a postgres database.
 
 > runTest :: String -> IO ()
-> runTest dbname = printPropagateError $ do
->   testOpen ("user=" ++ dbname)
->   db <- openDb ("user=" ++ dbname)
+> runTest connectStr = printPropagateError $ do
+>   testOpen (connectStr)
+>   db <- openDb (connectStr)
 >   disableNoticeReporting db
 >   createFixture db
 >   runTestTT "Postgres low-level tests" (testlist db)
@@ -83,10 +83,10 @@ we need two in the Haskell string.
 And if we want to send two backslashes (to start an escape)
 then we need to write four here.
 
-> byteaTestValIn = "\\\\\\\\ \\\\000 \\' \\\\377"
+> byteaTestValIn = "\\\\\\\\ \\\\000 \\\\377"
 > byteaTestValOut :: [Word8]
 > --byteaTestValOut = [92, 32, 0, 32, 39, 32, 255]
-> byteaTestValOut = str2Word8 "\\ \0 ' \255"
+> byteaTestValOut = str2Word8 "\\ \0 \255"
 
 i.e. backslash space zero space quote space 255
 

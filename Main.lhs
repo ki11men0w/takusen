@@ -25,11 +25,11 @@ Invoke main like this (assuming the compiled executable is called @takusen@):
 > module Main (main) where
 
 
-> import Database.Sqlite.Test.Enumerator as Sqlite
-> import Database.Oracle.Test.Enumerator as Oracle
+> --import Database.Sqlite.Test.Enumerator as Sqlite
+> -- import Database.Oracle.Test.Enumerator as Oracle
 > --import Database.Test.MultiConnect as Multi
-> import Database.ODBC.Test.Enumerator as ODBC
-> import Database.Stub.Test.Enumerator as Stub
+> -- import Database.ODBC.Test.Enumerator as ODBC
+> -- import Database.Stub.Test.Enumerator as Stub
 > --import Database.MSSqlServer.Test.Enumerator as MSSql
 > import Database.PostgreSQL.Test.Enumerator as PGSql
 > import System.Environment (getArgs)
@@ -58,13 +58,13 @@ Invoke main like this (assuming the compiled executable is called @takusen@):
 
 > backendTests :: [(String, Perf.ShouldRunTests -> [String] -> IO ())]
 > backendTests =
->   [ ("sqlite", Sqlite.runTest)
->   , ("pgsql", PGSql.runTest)
->   , ("odbc", ODBC.runTest)
+>   [ -- ("sqlite", Sqlite.runTest)
+>    ("pgsql", PGSql.runTest)
+>   -- ("odbc", ODBC.runTest)
 >   --, ("mssql", MSSql.runTest)
->   , ("oracle", Oracle.runTest)
+>   -- ("oracle", Oracle.runTest)
 >   --, ("multi", Multi.runTest)
->   , ("stub", Stub.runTest)
+>   -- , ("stub", Stub.runTest)
 >   , ("utf8", UTF8.runTest)
 >   , ("util", Util.runTest)
 >   ]
