@@ -19,6 +19,9 @@
 {-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 
+#if __GLASGOW_HASKELL__ >= 609
+#define USE_NEW_EXCEPTIONS
+#endif
 #ifdef USE_NEW_EXCEPTIONS
 module Control.Exception.Extensible (module Control.Exception) where
 
