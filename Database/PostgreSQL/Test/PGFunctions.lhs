@@ -122,15 +122,6 @@ i.e. backslash space zero space quote space 255
 >   printPropagateError $ ddlExec db "insert into tdual values (1)"
 
 
-> instance QC.Arbitrary Word8 where
->   arbitrary = QC.elements [minBound..maxBound]
->   coarbitrary = undefined
-
-> instance QC.Arbitrary Char where
->   --arbitrary = QC.choose (chr 1, chr 0x10FFFF)
->   arbitrary = QC.choose (chr 32, chr 126)
->   coarbitrary = undefined
-
 > str2Word8 :: String -> [Word8]
 > str2Word8 s = map (fromIntegral . fromEnum) s
 > word8ToStr :: [Word8] -> String
@@ -142,8 +133,8 @@ i.e. backslash space zero space quote space 255
 > testByteaEsc db = do
 >   assertEqual "testByteaEsc" (str2Word8 "\\000\\001\\002") (byteaEsc [0,1,2])
 >   assertEqual "testByteaEsc" (str2Word8 "\\037\\177\\377") (byteaEsc [31,127,255])
->   QC.test prop_byteaEscRoundTripString
->   QC.test prop_byteaEscRoundTrip
+>   QC.quickCheck prop_byteaEscRoundTripString
+>   QC.quickCheck prop_byteaEscRoundTrip
 
 > prop_uuidRoundTrip :: (Int, Int) -> Bool
 > prop_uuidRoundTrip (w1, w2) = uuid == string2uuid (uuid2string uuid)
@@ -156,7 +147,7 @@ i.e. backslash space zero space quote space 255
 >   assertEqual "testUUIDMarshal"
 >     (UUID (0x1000000010000000, 0x1000000010000000))
 >     (string2uuid "{10000000-10000000-10000000-10000000}")
->   QC.test prop_uuidRoundTrip
+>   QC.quickCheck prop_uuidRoundTrip
 
 
 > testSelectStrings db = do

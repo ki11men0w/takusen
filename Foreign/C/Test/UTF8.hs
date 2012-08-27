@@ -42,13 +42,8 @@ testlist =
   -- , testLargeFromUTF8Len
   ]
 
-
-instance QC.Arbitrary Char where
-  arbitrary = QC.choose (chr 1, chr 0x10FFFF)
-  coarbitrary = undefined
-
 prop_roundtrip s = s == fromUTF8 (toUTF8 s)
-quickCheckUTF8RoundTrip = QC.test prop_roundtrip
+quickCheckUTF8RoundTrip = QC.quickCheck prop_roundtrip
 
 testUTF8RoundTrip = do
   utf8RoundTrip "1ByteLow"   0x000001 [0x01]
