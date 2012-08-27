@@ -14,6 +14,11 @@ Oracle OCI implementation of Database.Enumerator.
 > {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE UndecidableInstances #-}
 
+> {-# LANGUAGE TypeSynonymInstances #-}
+> {-# LANGUAGE FlexibleInstances #-}
+> {-# LANGUAGE MultiParamTypeClasses #-}
+> {-# LANGUAGE DeriveDataTypeable #-}
+
 > module Database.Oracle.Enumerator
 >   ( Session, connect
 >   , prepareQuery, prepareLargeQuery, prepareCommand, prepareLargeCommand

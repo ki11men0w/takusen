@@ -20,6 +20,7 @@ functions and types. See the various backend-specific test modules for examples.
 
 
 > {-# LANGUAGE OverlappingInstances #-}
+> {-# LANGUAGE ScopedTypeVariables #-}
 
 > module Database.Test.Enumerator where
 

@@ -11,6 +11,7 @@ Simple wrappers for Sqlite functions (FFI).
 
 
 > {-# LANGUAGE ForeignFunctionInterface #-}
+> {-# LANGUAGE DeriveDataTypeable #-}
 
 > module Database.Sqlite.SqliteFunctions where
 

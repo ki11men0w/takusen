@@ -42,6 +42,13 @@ but their specific types and usage may differ between DBMS.
 > {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE UndecidableInstances #-}
 
+> {-# LANGUAGE DatatypeContexts #-}
+> {-# LANGUAGE RankNTypes #-}
+> {-# LANGUAGE MultiParamTypeClasses #-}
+> {-# LANGUAGE FunctionalDependencies #-}
+> {-# LANGUAGE FlexibleInstances #-}
+> {-# LANGUAGE FlexibleContexts #-}
+
 > {-  LANGUAGE MultiParamTypeClasses #-}
 > {-  LANGUAGE RankNTypes #-}
 > {-  LANGUAGE FunctionalDependencies #-}

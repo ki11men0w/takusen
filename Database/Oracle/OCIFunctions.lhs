@@ -23,6 +23,7 @@ the OCI call, and some text identifying the wrapper function.
 See 'formatErrorCodeDesc' for the set of possible values for the OCI error numbers.
 
 > {-# LANGUAGE ForeignFunctionInterface #-}
+> {-# LANGUAGE DeriveDataTypeable #-}
 
 
 > module Database.Oracle.OCIFunctions where
