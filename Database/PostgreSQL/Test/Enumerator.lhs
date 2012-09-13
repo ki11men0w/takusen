@@ -104,7 +104,8 @@ SELECT n, takusenTestFunc(n) from t_natural where n < 10 order by n;
 >   let (user:pswd:dbname:_) = args
 >   Low.runTest $ "user=" ++ user ++ " password=" ++ pswd ++ " dbname=" ++ dbname
 >   flip catchDB basicDBExceptionReporter $ do
->     (r, conn1) <- withContinuedSession (connect [CAuser user, CApassword pswd, CAdbname dbname]) (testBody runPerf)
+>     (_, conn0) <- withContinuedSession (connect [CAuser user, CApassword pswd, CAdbname dbname]) $ execDDL (sql "SET LC_MESSAGES=C;")
+>     (r, conn1) <- withContinuedSession conn0 (testBody runPerf)
 >     withSession conn1 testPartTwo
 
 > testBody runPerf = do
