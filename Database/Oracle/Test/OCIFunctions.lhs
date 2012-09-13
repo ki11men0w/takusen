@@ -88,7 +88,7 @@ so it should only use functions from there (and "Database.Oracle.OCIConstants").
 >     OCI.handleFree oci_HTYPE_SVCCTX (castPtr conn)
 >     OCI.handleFree oci_HTYPE_ERROR (castPtr err)
 >     OCI.handleFree oci_HTYPE_ENV (castPtr env)
->     OCI.terminate
+>     -- OCI.terminate -- This call causes segmentation fault on successive connect/disconnect
 >   ) (\ociexc -> reportAndIgnore (castPtr err) ociexc nullAction)
 
 

@@ -299,7 +299,7 @@ and not reusing the Env and ErrorHandles for new connections.
 >   logoff err conn
 >   dispose err
 >   dispose env
->   OCI.terminate
+>   -- OCI.terminate -- This call causes segmentation fault on successive connect/disconnect
 
 
 |Oracle only supports ReadCommitted and Serialisable.
