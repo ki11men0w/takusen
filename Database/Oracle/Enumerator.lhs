@@ -727,7 +727,7 @@ in the Oracle case, though.
 >   bindWriteBuffer b s = withCStringLen s (\(p,l) -> 
 >     copyBytes (castPtr b) p (1+l))
 >   bindDataSize s = fromIntegral (length s)
->   bindBufferSize _ = 32000
+>   bindDataSize _ = maxStringBufferLength
 >   bindType _ = oci_SQLT_CHR
 
 > instance OracleBind Int where
@@ -1016,7 +1016,7 @@ leaks aren't as likely as I think.
 
 
 > instance DBType (Maybe String) Query ColumnBuffer where
->   allocBufferFor _ q n = allocBuffer q (16000, oci_SQLT_CHR) n
+>   allocBufferFor _ q n = allocBuffer q (maxStringBufferLength, oci_SQLT_CHR) n
 >   fetchCol q buffer = bufferToString buffer
 
 > instance DBType (Maybe Int) Query ColumnBuffer where
@@ -1052,9 +1052,11 @@ type-specific non-Maybe instances e.g. String, Int, Double, etc.
 and uses Read to convert the String to a Haskell data value.
 
 > instance (Show a, Read a) => DBType (Maybe a) Query ColumnBuffer where
->   allocBufferFor _ q n = allocBuffer q (16000, oci_SQLT_CHR) n
+>   allocBufferFor _ q n = allocBuffer q (maxStringBufferLength, oci_SQLT_CHR) n
 >   fetchCol q buffer = do
 >     v <- bufferToString buffer
 >     case v of
 >       Just s -> if s == "" then return Nothing else return (Just (read s))
 >       Nothing -> return Nothing
+
+> maxStringBufferLength = fromIntegral 65635 --32760
