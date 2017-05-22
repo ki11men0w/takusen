@@ -134,6 +134,7 @@ Library
 
   Exposed-modules:
         Database.Enumerator
+      , Database.Oracle.Enumerator
       , Database.Util
       --, Database.Stub.Enumerator
       , Control.Exception.MonadIO
