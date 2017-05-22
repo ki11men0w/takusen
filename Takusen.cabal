@@ -134,9 +134,7 @@ Library
 
   Exposed-modules:
         Database.Enumerator
-      , Database.Oracle.Enumerator
       , Database.Util
-      --, Database.Stub.Enumerator
       , Control.Exception.MonadIO
       , Foreign.C.UTF8
 
@@ -206,4 +204,4 @@ Library
         Database.InternalEnumerator
       , Control.Exception.Extensible
       -- Modules in Other-modules are passed to Haddock with --hide=<module-name>.
-  Ghc-Prof-Options: -prof -auto-all
+  Ghc-Prof-Options: -auto-all
