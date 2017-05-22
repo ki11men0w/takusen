@@ -773,7 +773,7 @@ in the Oracle case, though.
 >   pok p (fn v)
 >   action (castPtr p)
 
-> clength = fromIntegral . length
+> --clength = fromIntegral . length
 
 > toCInt :: Int -> CInt; toCInt = fromIntegral
 > fromCInt :: CInt -> Int; fromCInt = fromIntegral

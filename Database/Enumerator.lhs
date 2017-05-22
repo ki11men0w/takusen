@@ -216,10 +216,10 @@ all class constraints for the Session (like IQuery, DBType, etc).
 
 > newtype IE.ISession sess => DBM mark sess a = DBM (ReaderT sess IO a)
 #ifndef __HADDOCK__
->   deriving (Functor, Monad, MonadIO, MonadFix, MonadReader sess)
+>   deriving (Functor, Applicative, Monad, MonadIO, MonadFix, MonadReader sess)
 #else
 >   -- Haddock can't cope with the "MonadReader sess" instance
->   deriving (Functor, Monad, MonadIO, MonadFix)
+>   deriving (Functor, Applicative, Monad, MonadIO, MonadFix)
 #endif
 > unDBM (DBM x) = x
 
