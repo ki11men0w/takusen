@@ -156,7 +156,7 @@ Library
         Database.Oracle.Enumerator
       , Database.Oracle.OCIConstants
       , Database.Oracle.OCIFunctions
-    Build-Tools: sqlplus
+    --Build-Tools: sqlplus
     If os(windows)
       Extra-Libraries: oci
     Else
