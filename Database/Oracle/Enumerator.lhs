@@ -1059,4 +1059,4 @@ and uses Read to convert the String to a Haskell data value.
 >       Just s -> if s == "" then return Nothing else return (Just (read s))
 >       Nothing -> return Nothing
 
-> maxStringBufferLength = fromIntegral 65635 --32760
+> maxStringBufferLength = fromIntegral 262144 --65635 --32760
