@@ -16,7 +16,7 @@ Stability:      experimental
 -- Homepage:       http://code.haskell.org/takusen
 -- Package-url:    http://code.haskell.org/takusen
 Category:       Database
-Build-type:     Custom
+Build-type:     Simple
 Cabal-Version:  >= 1.6
 Synopsis:       Database library with left-fold interface, for PostgreSQL, Oracle, SQLite, ODBC.
 Description:   
@@ -156,7 +156,7 @@ Library
         Database.Oracle.Enumerator
       , Database.Oracle.OCIConstants
       , Database.Oracle.OCIFunctions
-    Build-Tools: sqlplus
+    --Build-Tools: sqlplus
     If os(windows)
       Extra-Libraries: oci
     Else
