@@ -52,6 +52,8 @@ but their specific types and usage may differ between DBMS.
 > {-  LANGUAGE FlexibleInstances #-}
 > {-  LANGUAGE FlexibleContexts #-}
 
+> {-# LANGUAGE AllowAmbiguousTypes #-}
+> {-# LANGUAGE MonoLocalBinds #-}
 
 
 > module Database.Enumerator
