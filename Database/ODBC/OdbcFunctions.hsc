@@ -1,5 +1,5 @@
 
-{-# OPTIONS -fglasgow-exts #-}
+{-# OPTIONS -XScopedTypeVariables #-}
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE ForeignFunctionInterface #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}

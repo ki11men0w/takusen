@@ -10,8 +10,7 @@ Portability :  non-portable
 Oracle OCI implementation of Database.Enumerator.
 
 
-> {-# OPTIONS -fglasgow-exts #-}
-> {-# LANGUAGE OverlappingInstances #-}
+> {-# LANGUAGE ScopedTypeVariables #-}
 > {-# LANGUAGE UndecidableInstances #-}
 
 > {-# LANGUAGE TypeSynonymInstances #-}
@@ -578,16 +577,16 @@ reused for the child cursors.
 >     action (BoundStmt stmt)
 >   destroyStmt sess pstmt = closeStmt sess (stmtHandle pstmt)
 
-> instance DBBind (Maybe String) Session PreparedStmtObj BindObj where
+> instance {-# OVERLAPS #-} DBBind (Maybe String) Session PreparedStmtObj BindObj where
 >   bindP = makeBindAction
 
-> instance DBBind (Out (Maybe String)) Session PreparedStmtObj BindObj where
+> instance {-# OVERLAPS #-} DBBind (Out (Maybe String)) Session PreparedStmtObj BindObj where
 >   bindP (Out v) = makeOutputBindAction v
 
-> instance DBBind (Maybe Int) Session PreparedStmtObj BindObj where
+> instance {-# OVERLAPS #-} DBBind (Maybe Int) Session PreparedStmtObj BindObj where
 >   bindP = makeBindAction
 
-> instance DBBind (Out (Maybe Int)) Session PreparedStmtObj BindObj where
+> instance {-# OVERLAPS #-} DBBind (Out (Maybe Int)) Session PreparedStmtObj BindObj where
 >   bindP (Out v) = makeOutputBindAction v
 
 I don't think Oracle supports int64 in v8i's OCI API...
@@ -727,7 +726,6 @@ in the Oracle case, though.
 >   bindWriteBuffer b s = withCStringLen s (\(p,l) -> 
 >     copyBytes (castPtr b) p (1+l))
 >   bindDataSize s = fromIntegral (length s)
->   bindDataSize _ = maxStringBufferLength
 >   bindType _ = oci_SQLT_CHR
 
 > instance OracleBind Int where
