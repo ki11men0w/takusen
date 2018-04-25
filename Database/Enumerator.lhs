@@ -35,14 +35,11 @@ They include:
 These functions will typically have the same names and intentions,
 but their specific types and usage may differ between DBMS.
 
-
-> {-# OPTIONS -fglasgow-exts #-}
+> {-# LANGUAGE ScopedTypeVariables #-}
 > {-# LANGUAGE CPP #-}
 > {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-> {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE UndecidableInstances #-}
 
-> {-# LANGUAGE DatatypeContexts #-}
 > {-# LANGUAGE RankNTypes #-}
 > {-# LANGUAGE MultiParamTypeClasses #-}
 > {-# LANGUAGE FunctionalDependencies #-}
@@ -960,7 +957,6 @@ then you get the error:
 Another way of rewriting it is like this, where we separate the
 'Database.Enumerator.DBM' action into another function:
 
- > {-# OPTIONS -fglasgow-exts #-}
  > module Main where
  > import Database.Sqlite.Enumerator
  > import Control.Monad.Trans (liftIO)

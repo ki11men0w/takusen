@@ -10,7 +10,7 @@ Portability :  non-portable
 Sqlite implementation of Database.Enumerator.
 
 
-> {-# OPTIONS -fglasgow-exts #-}
+> {-# LANGUAGE ScopedTypeVariables #-}
 
 > {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE UndecidableInstances #-}

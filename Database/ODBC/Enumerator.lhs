@@ -34,7 +34,7 @@ Before binding, but only if the prepared-stmt object
 indicates that some rows have already been fetched.
 
 
-> {-# OPTIONS -fglasgow-exts #-}
+> {-# LANGUAGE ScopedTypeVariables #-}
 > {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE UndecidableInstances #-}
 
