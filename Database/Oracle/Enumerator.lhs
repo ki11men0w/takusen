@@ -726,7 +726,6 @@ in the Oracle case, though.
 >   bindWriteBuffer b s = withCStringLen s (\(p,l) -> 
 >     copyBytes (castPtr b) p (1+l))
 >   bindDataSize s = fromIntegral (length s)
->   bindDataSize _ = maxStringBufferLength
 >   bindType _ = oci_SQLT_CHR
 
 > instance OracleBind Int where
