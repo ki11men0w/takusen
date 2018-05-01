@@ -35,19 +35,17 @@ They include:
 These functions will typically have the same names and intentions,
 but their specific types and usage may differ between DBMS.
 
-
-> {-# OPTIONS -fglasgow-exts #-}
+> {-# LANGUAGE ScopedTypeVariables #-}
 > {-# LANGUAGE CPP #-}
 > {-# LANGUAGE GeneralizedNewtypeDeriving #-}
-> {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE UndecidableInstances #-}
 
-> {-# LANGUAGE DatatypeContexts #-}
 > {-# LANGUAGE RankNTypes #-}
 > {-# LANGUAGE MultiParamTypeClasses #-}
 > {-# LANGUAGE FunctionalDependencies #-}
 > {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE FlexibleContexts #-}
+> -- {-# LANGUAGE OverlappingInstances #-}
 
 > {-  LANGUAGE MultiParamTypeClasses #-}
 > {-  LANGUAGE RankNTypes #-}
@@ -55,6 +53,8 @@ but their specific types and usage may differ between DBMS.
 > {-  LANGUAGE FlexibleInstances #-}
 > {-  LANGUAGE FlexibleContexts #-}
 
+> {-# LANGUAGE AllowAmbiguousTypes #-}
+> {-# LANGUAGE MonoLocalBinds #-}
 
 
 > module Database.Enumerator
@@ -446,7 +446,7 @@ middle-layer - enumerator - is database-independent then.
 i.e. where the iteratee function has one argument left.
 The argument is applied, and the result returned.
 
-> instance (IE.DBType a q b, MonadIO m) =>
+> instance {-# OVERLAPPABLE #-} (IE.DBType a q b, MonadIO m) =>
 >   QueryIteratee m q (a -> seed -> m (IterResult seed)) seed b where
 >   iterApply q [buf] seed fn  = do
 >     v <- liftIO $ IE.fetchCol q buf
@@ -457,7 +457,7 @@ The argument is applied, and the result returned.
 
 |This instance of the class implements the starting and continuation cases.
 
-> instance (QueryIteratee m q i' seed b, IE.DBType a q b)
+> instance {-# OVERLAPPING #-} (QueryIteratee m q i' seed b, IE.DBType a q b)
 >     => QueryIteratee m q (a -> i') seed b where
 >   iterApply q (buffer:moreBuffers) seed fn = do
 >     v <- liftIO $ IE.fetchCol q buffer
@@ -960,7 +960,6 @@ then you get the error:
 Another way of rewriting it is like this, where we separate the
 'Database.Enumerator.DBM' action into another function:
 
- > {-# OPTIONS -fglasgow-exts #-}
  > module Main where
  > import Database.Sqlite.Enumerator
  > import Control.Monad.Trans (liftIO)
