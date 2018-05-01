@@ -45,7 +45,7 @@ but their specific types and usage may differ between DBMS.
 > {-# LANGUAGE FunctionalDependencies #-}
 > {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE FlexibleContexts #-}
-> -- {-# LANGUAGE OverlappingInstances #-}
+> {-# LANGUAGE OverlappingInstances #-}
 
 > {-  LANGUAGE MultiParamTypeClasses #-}
 > {-  LANGUAGE RankNTypes #-}
@@ -446,7 +446,7 @@ middle-layer - enumerator - is database-independent then.
 i.e. where the iteratee function has one argument left.
 The argument is applied, and the result returned.
 
-> instance {-# OVERLAPPABLE #-} (IE.DBType a q b, MonadIO m) =>
+> instance (IE.DBType a q b, MonadIO m) =>
 >   QueryIteratee m q (a -> seed -> m (IterResult seed)) seed b where
 >   iterApply q [buf] seed fn  = do
 >     v <- liftIO $ IE.fetchCol q buf
@@ -457,7 +457,7 @@ The argument is applied, and the result returned.
 
 |This instance of the class implements the starting and continuation cases.
 
-> instance {-# OVERLAPPING #-} (QueryIteratee m q i' seed b, IE.DBType a q b)
+> instance (QueryIteratee m q i' seed b, IE.DBType a q b)
 >     => QueryIteratee m q (a -> i') seed b where
 >   iterApply q (buffer:moreBuffers) seed fn = do
 >     v <- liftIO $ IE.fetchCol q buffer

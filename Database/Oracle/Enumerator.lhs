@@ -16,7 +16,7 @@ Oracle OCI implementation of Database.Enumerator.
 > {-# LANGUAGE TypeSynonymInstances #-}
 > {-# LANGUAGE FlexibleInstances #-}
 > {-# LANGUAGE MultiParamTypeClasses #-}
-> -- {-# LANGUAGE OverlappingInstances #-}
+> {-# LANGUAGE OverlappingInstances #-}
 > {-# LANGUAGE DeriveDataTypeable #-}
 
 > module Database.Oracle.Enumerator
@@ -578,16 +578,16 @@ reused for the child cursors.
 >     action (BoundStmt stmt)
 >   destroyStmt sess pstmt = closeStmt sess (stmtHandle pstmt)
 
-> instance {-# OVERLAPPING #-} DBBind (Maybe String) Session PreparedStmtObj BindObj where
+> instance DBBind (Maybe String) Session PreparedStmtObj BindObj where
 >   bindP = makeBindAction
 
-> instance {-# OVERLAPPING #-} DBBind (Out (Maybe String)) Session PreparedStmtObj BindObj where
+> instance DBBind (Out (Maybe String)) Session PreparedStmtObj BindObj where
 >   bindP (Out v) = makeOutputBindAction v
 
-> instance {-# OVERLAPPING #-} DBBind (Maybe Int) Session PreparedStmtObj BindObj where
+> instance DBBind (Maybe Int) Session PreparedStmtObj BindObj where
 >   bindP = makeBindAction
 
-> instance {-# OVERLAPPING #-} DBBind (Out (Maybe Int)) Session PreparedStmtObj BindObj where
+> instance DBBind (Out (Maybe Int)) Session PreparedStmtObj BindObj where
 >   bindP (Out v) = makeOutputBindAction v
 
 I don't think Oracle supports int64 in v8i's OCI API...
@@ -595,19 +595,19 @@ I don't think Oracle supports int64 in v8i's OCI API...
  instance DBBind (Maybe Int64) Session PreparedStmtObj BindObj where
    bindP = makeBindAction
 
-> instance {-# OVERLAPPING #-} DBBind (Maybe Double) Session PreparedStmtObj BindObj where
+> instance DBBind (Maybe Double) Session PreparedStmtObj BindObj where
 >   bindP = makeBindAction
 
-> instance {-# OVERLAPPING #-} DBBind (Out (Maybe Double)) Session PreparedStmtObj BindObj where
+> instance DBBind (Out (Maybe Double)) Session PreparedStmtObj BindObj where
 >   bindP (Out v) = makeOutputBindAction v
 
-> instance {-# OVERLAPPING #-} DBBind (Maybe CalendarTime) Session PreparedStmtObj BindObj where
+> instance DBBind (Maybe CalendarTime) Session PreparedStmtObj BindObj where
 >   bindP = makeBindAction
 
-> instance {-# OVERLAPPING #-} DBBind (Maybe UTCTime) Session PreparedStmtObj BindObj where
+> instance DBBind (Maybe UTCTime) Session PreparedStmtObj BindObj where
 >   bindP = makeBindAction
 
-> instance {-# OVERLAPPING #-} DBBind (Out (Maybe UTCTime)) Session PreparedStmtObj BindObj where
+> instance DBBind (Out (Maybe UTCTime)) Session PreparedStmtObj BindObj where
 >   bindP (Out v) = makeOutputBindAction v
 
 StmtHandles (i.e. RefCursors) are output only, I think
@@ -615,7 +615,7 @@ StmtHandles (i.e. RefCursors) are output only, I think
 We create the StmtHandle here, so the user doesn't have to
 (is this a bad idea?...)
 
-> instance {-# OVERLAPPING #-} DBBind (Out (Maybe StmtHandle)) Session PreparedStmtObj BindObj where
+> instance DBBind (Out (Maybe StmtHandle)) Session PreparedStmtObj BindObj where
 >   bindP (Out v) = BindA (\sess stmt pos -> do
 >       stmt2 <- getStmt sess
 >       bindOutputMaybe sess stmt (Just stmt2) pos
@@ -625,21 +625,21 @@ We create the StmtHandle here, so the user doesn't have to
 
 Instances for non-Maybe types i.e. bare Int, Double, String, etc.
 
-> instance {-# OVERLAPS #-} DBBind (Maybe a) Session PreparedStmtObj BindObj
+> instance DBBind (Maybe a) Session PreparedStmtObj BindObj
 >     => DBBind a Session PreparedStmtObj BindObj where
 >   bindP x = bindP (Just x)
 
-> instance {-# OVERLAPS #-} DBBind (Out (Maybe a)) Session PreparedStmtObj BindObj
+> instance DBBind (Out (Maybe a)) Session PreparedStmtObj BindObj
 >     => DBBind (Out a) Session PreparedStmtObj BindObj where
 >   bindP (Out x) = bindP (Out (Just x))
 
 Default instances, using generic Show.
 
-> instance {-# OVERLAPS #-} (Show a) => DBBind (Maybe a) Session PreparedStmtObj BindObj where
+> instance (Show a) => DBBind (Maybe a) Session PreparedStmtObj BindObj where
 >   bindP (Just x) = bindP (Just (show x))
 >   bindP Nothing = bindP (Nothing `asTypeOf` Just "")
 
-> instance {-# OVERLAPS #-} (Show a) => DBBind (Out (Maybe a)) Session PreparedStmtObj BindObj where
+> instance (Show a) => DBBind (Out (Maybe a)) Session PreparedStmtObj BindObj where
 >   bindP (Out (Just x)) = bindP (Out (Just (show x)))
 >   bindP (Out Nothing) = bindP (Out (Nothing `asTypeOf` Just ""))
 
