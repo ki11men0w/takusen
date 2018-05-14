@@ -157,10 +157,10 @@ Library
       , Database.Oracle.OCIConstants
       , Database.Oracle.OCIFunctions
     --Build-Tools: sqlplus
-    --If os(windows)
-    --  Extra-Libraries: oci
-    --Else
-    --  Extra-Libraries: clntsh
+    If os(windows)
+      Extra-Libraries: oci.dll
+    Else
+      Extra-Libraries: clntsh
 
   If flag(postgres)
     Exposed-modules:
