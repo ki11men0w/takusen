@@ -61,7 +61,7 @@ i.e. there's no timezone adjustment.
 >     , ctMin = fromIntegral minute
 >     , ctSec = fromIntegral second
 >     , ctPicosec = 0
->     , ctWDay = Sunday
+>     , ctWDay = System.Time.Sunday
 >     , ctYDay = -1
 >     , ctTZName = "UTC"
 >     , ctTZ = 0
